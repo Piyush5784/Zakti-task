@@ -4,9 +4,8 @@ This is a simple MERN (MongoDB, Express.js, React.js, Node.js) stack application
 
 ## Features
 
-- **Add Product**: Users can add products with name, price, quantity, and an optional image.
+- **Add Product**: Users can add products with name, price, quantity.
 - **View Products**: Users can view the list of products fetched from the backend.
-- **Add to Cart**: Users can add products to the cart.
 - **Increment/Decrement Quantity**: Users can increment or decrement the quantity of each product in the cart.
 
 ## Technologies Used
