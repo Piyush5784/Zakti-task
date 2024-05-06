@@ -66,10 +66,8 @@ router.post("/updateQuantity", (req, res) => __awaiter(void 0, void 0, void 0, f
 }));
 router.post("/deleteProduct", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { productId } = req.body;
-    console.log(productId);
     try {
         yield db_1.Products.findOneAndDelete({ _id: productId });
-        console.log(res);
         res.json({
             message: "Successfully deleted",
         });
