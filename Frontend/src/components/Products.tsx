@@ -62,9 +62,9 @@ const Products = () => {
       </>
     );
   } else if (allProducts.state == "hasError") {
-    return <div>Backend Down</div>;
+    return <div className="pl-5">Backend Down</div>;
   } else if (allProducts.state == "loading") {
-    return <div>Loading</div>;
+    return <div className="pl-5">Loading</div>;
   }
 };
 

@@ -53,7 +53,6 @@ export function FunctionContextProvider({ children }: { children: ReactNode }) {
       Price: price,
     });
     if (res.data.message) {
-      toast.success(res.data.message);
       window.location.reload();
     }
   }
