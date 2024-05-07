@@ -17,7 +17,16 @@ type FunctionContextProp = {
     productId: string,
     Quantity: number
   ) => Promise<void>;
-
+  increaseQuantity: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    Id: string,
+    Quantity: number
+  ) => Promise<void>;
+  decreaseQuantity: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    Id: string,
+    Quantity: number
+  ) => Promise<void>;
   addToCart: (Item: ProductProp) => Promise<void>;
   increaseProductQuantity: (
     productId: string,
@@ -114,6 +123,35 @@ export function FunctionContextProvider({ children }: { children: ReactNode }) {
       toast.error("Error Adding in cart");
     }
   }
+
+  async function increaseQuantity(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    Id: string,
+    Quantity: number
+  ) {
+    e.preventDefault();
+    try {
+      await axios.post(`${backendUrl}/api/cart/updateCartQuantity`, {
+        productId: Id,
+        Quantity: Quantity + 1,
+      });
+      window.location.reload();
+    } catch (error) {}
+  }
+  async function decreaseQuantity(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    Id: string,
+    Quantity: number
+  ) {
+    e.preventDefault();
+    try {
+      await axios.post(`${backendUrl}/api/cart/updateCartQuantity`, {
+        productId: Id,
+        Quantity: Quantity - 1,
+      });
+      window.location.reload();
+    } catch (error) {}
+  }
   return (
     <FunctionContext.Provider
       value={{
@@ -123,6 +161,8 @@ export function FunctionContextProvider({ children }: { children: ReactNode }) {
         deleteProduct,
         productsName,
         setProductsName,
+        increaseQuantity,
+        decreaseQuantity,
         setQuantity,
         setPrice,
         addProduct,
