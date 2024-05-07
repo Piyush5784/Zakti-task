@@ -14,6 +14,9 @@ const Carts = () => {
           {cartsItems.contents.carts.map((item: ProductProp) => (
             <>
               <div className="border rounded-xl m-5 w-[40%] md:w-[30%] lg:w-[20%]">
+                {cartsItems.contents.carts.length == 0 && (
+                  <p className="pl-7">Cart list empty</p>
+                )}
                 <p className="p-3"> Product name : {item.Name}</p>
                 <p className="p-3">Price : ${Number(item?.Price)}</p>
 

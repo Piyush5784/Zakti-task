@@ -11,6 +11,9 @@ const Products = () => {
     return (
       <>
         <div className="flex flex-wrap">
+          {allProducts.contents.products.length == 0 && (
+            <p className="pl-7">Product list empty</p>
+          )}
           {allProducts.contents.products.map((item: ProductProp) => (
             <>
               <div className="border rounded-xl m-5 w-[40%] md:w-[30%] lg:w-[90%]">

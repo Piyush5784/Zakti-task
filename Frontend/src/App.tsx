@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <div className="flex gap-7">
+      <div className="flex flex-col md:flex-row gap-7">
         <Toaster />
 
         <div className="">
@@ -75,7 +75,7 @@ function App() {
 
         <hr />
       </div>
-      <div className="ml-[280px]">
+      <div className="md:ml-[280px]">
         <p className="pl-7 font-bold">Cart List</p>
 
         <Carts />
