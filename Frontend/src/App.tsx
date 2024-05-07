@@ -11,10 +11,10 @@ function App() {
 
   return (
     <>
-      <div className="flex-col flex justify-between ">
+      <div className="flex gap-7">
         <Toaster />
 
-        <div className="w-[90%]">
+        <div className="">
           <form className="max-w-sm mx-auto rounded-md float-left border p-2 m-7 border-black ml-5">
             <div className="mb-5">
               <label
@@ -68,11 +68,14 @@ function App() {
             </button>
           </form>{" "}
         </div>
+        <div>
+          <p className="font-bold pl-7">Product List</p>
+          <Products />
+        </div>
 
-        <p className="pl-7 font-bold">Product List</p>
-        <Products />
         <hr />
-
+      </div>
+      <div className="ml-[280px]">
         <p className="pl-7 font-bold">Cart List</p>
 
         <Carts />

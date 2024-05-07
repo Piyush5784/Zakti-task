@@ -113,7 +113,7 @@ export function FunctionContextProvider({ children }: { children: ReactNode }) {
       await axios.post(`${backendUrl}/api/cart/addToCart`, {
         productName: Item.Name,
         Price: Item.Price,
-        Quantity: Item.Quantity,
+        Quantity: 1,
         CartId: Item._id,
       });
 
