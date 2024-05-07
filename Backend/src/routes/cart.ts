@@ -62,7 +62,7 @@ router.post("/updateCartQuantity", async (req, res) => {
   try {
     const response = await Carts.findOneAndUpdate(
       { _id: productId },
-      { Quantity: Quantity + 1 },
+      { Quantity: Quantity },
       { new: true }
     );
     res.json({

@@ -60,7 +60,7 @@ router.get("/getAllCarts", (req, res) => __awaiter(void 0, void 0, void 0, funct
 router.post("/updateCartQuantity", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { productId, Quantity } = req.body;
     try {
-        const response = yield db_1.Carts.findOneAndUpdate({ _id: productId }, { Quantity: Quantity + 1 }, { new: true });
+        const response = yield db_1.Carts.findOneAndUpdate({ _id: productId }, { Quantity: Quantity }, { new: true });
         res.json({
             message: "success",
             response,
