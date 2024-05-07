@@ -7,9 +7,11 @@ const app: Application = express();
 app.use(express.json());
 
 const mainRouter = require("./routes/products");
+const cartRouter = require("./routes/cart");
 
 app.use(cors());
-app.use("/api", mainRouter);
+app.use("/api/product", mainRouter);
+app.use("/api/cart", cartRouter);
 
 const mongodbUrl: string = process.env.mongodbUrl || "";
 const PORT: string | number = process.env.PORT || 3004;

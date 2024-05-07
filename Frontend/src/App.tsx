@@ -3,6 +3,7 @@ import "./App.css";
 import Products from "./components/Products";
 import { Toaster } from "react-hot-toast";
 import { useFunctionsContext } from "./Context/DataContext";
+import Carts from "./components/Carts";
 
 function App() {
   const { setProductsName, setQuantity, setPrice, addProduct } =
@@ -12,6 +13,7 @@ function App() {
     <>
       <div className="flex-col flex justify-between ">
         <Toaster />
+
         <div className="w-[90%]">
           <form className="max-w-sm mx-auto rounded-md float-left border p-2 m-7 border-black ml-5">
             <div className="mb-5">
@@ -62,12 +64,18 @@ function App() {
               onClick={(e) => addProduct(e)}
               className="bg-black text-white rounded-lg px-3 py-2"
             >
-              Add to cart
+              Add Product
             </button>
           </form>{" "}
         </div>
 
+        <p className="pl-7 font-bold">Product List</p>
         <Products />
+        <hr />
+
+        <p className="pl-7 font-bold">Cart List</p>
+
+        <Carts />
       </div>
     </>
   );

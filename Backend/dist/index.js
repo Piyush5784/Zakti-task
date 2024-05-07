@@ -10,8 +10,10 @@ require("dotenv").config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const mainRouter = require("./routes/products");
+const cartRouter = require("./routes/cart");
 app.use((0, cors_1.default)());
-app.use("/api", mainRouter);
+app.use("/api/product", mainRouter);
+app.use("/api/cart", cartRouter);
 const mongodbUrl = process.env.mongodbUrl || "";
 const PORT = process.env.PORT || 3004;
 mongoose_1.default

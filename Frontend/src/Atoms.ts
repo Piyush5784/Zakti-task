@@ -7,7 +7,18 @@ export const allProductsAtom = atom({
   default: selector({
     key: "ItemsSelector",
     get: async () => {
-      const res = await axios.get(`${backendUrl}/api/getAllProducts`);
+      const res = await axios.get(`${backendUrl}/api/product/getAllProducts`);
+      return res.data;
+    },
+  }),
+});
+
+export const allCartsListAtom = atom({
+  key: "CartsListAtom",
+  default: selector({
+    key: "cartItemsSelector",
+    get: async () => {
+      const res = await axios.get(`${backendUrl}/api/cart/getAllCarts`);
       return res.data;
     },
   }),
