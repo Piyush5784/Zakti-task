@@ -13,6 +13,18 @@ export const allProductsAtom = atom({
   }),
 });
 
+export const allProductsSelector = selector({
+  key: "allProductsSelector",
+  get: async () => {
+    try {
+      const res = await axios.get(`${backendUrl}/api/product/getAllProducts`);
+      return res.data;
+    } catch (error) {
+      return [];
+    }
+  },
+});
+
 export const allCartsListAtom = atom({
   key: "CartsListAtom",
   default: selector({

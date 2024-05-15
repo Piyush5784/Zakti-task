@@ -2,12 +2,16 @@ import { memo } from "react";
 import "./App.css";
 import Products from "./components/Products";
 import { Toaster } from "react-hot-toast";
-import { useFunctionsContext } from "./Context/DataContext";
 import Carts from "./components/Carts";
+import { useRecoilRefresher_UNSTABLE, useRecoilState } from "recoil";
+import { Product_Name, Quantity, allProductsAtom, price_atom } from "./Atoms";
+import { addProduct } from "./Function";
 
 function App() {
-  const { setProductsName, setQuantity, setPrice, addProduct } =
-    useFunctionsContext();
+  const [productsName, setProductsName] = useRecoilState(Product_Name);
+  const [quantity, setQuantity] = useRecoilState(Quantity);
+  const [price, setPrice] = useRecoilState(price_atom);
+  const refresh = useRecoilRefresher_UNSTABLE(allProductsAtom);
 
   return (
     <>
@@ -61,7 +65,10 @@ function App() {
             </div>
 
             <button
-              onClick={(e) => addProduct(e)}
+              onClick={async (e) => {
+                await addProduct(e, productsName, price, quantity);
+                refresh();
+              }}
               className="bg-black text-white rounded-lg px-3 py-2"
             >
               Add Product

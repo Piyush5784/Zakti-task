@@ -1,16 +1,23 @@
-import { useRecoilValueLoadable } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValueLoadable } from "recoil";
 import { allCartsListAtom } from "../Atoms";
-import { ProductProp, useFunctionsContext } from "../Context/DataContext";
+import {
+  ProductProp,
+  decreaseQuantity,
+  deleteFromCart,
+  increaseQuantity,
+} from "../Function";
 
 const Carts = () => {
   const cartsItems = useRecoilValueLoadable(allCartsListAtom);
+  const refresh = useRecoilRefresher_UNSTABLE(allCartsListAtom);
 
-  const { deleteFromCart, increaseQuantity, decreaseQuantity } =
-    useFunctionsContext();
   if (cartsItems.state == "hasValue") {
     return (
       <>
         <div className="flex flex-wrap">
+          {cartsItems.contents.carts.length == 0 && (
+            <p className="pl-7">Cart list empty</p>
+          )}
           {cartsItems.contents.carts.map((item: ProductProp) => (
             <>
               <div className="border rounded-xl m-5 w-[40%] md:w-[30%] lg:w-[20%]">
@@ -23,9 +30,14 @@ const Carts = () => {
                 <div className="flex items-center">
                   <div>
                     <button
-                      onClick={(e) =>
-                        increaseQuantity(e, item._id, Number(item.Quantity))
-                      }
+                      onClick={async (e) => {
+                        await increaseQuantity(
+                          e,
+                          item._id,
+                          Number(item.Quantity)
+                        );
+                        refresh();
+                      }}
                       className="p-1 bg-black text-white rounded-xl ml-3"
                     >
                       +
@@ -35,9 +47,14 @@ const Carts = () => {
                   {Number(item.Quantity) > 1 && (
                     <div>
                       <button
-                        onClick={(e) =>
-                          decreaseQuantity(e, item._id, Number(item.Quantity))
-                        }
+                        onClick={async (e) => {
+                          await decreaseQuantity(
+                            e,
+                            item._id,
+                            Number(item.Quantity)
+                          );
+                          refresh();
+                        }}
                         className="p-2 bg-black text-white rounded-xl"
                       >
                         -
@@ -47,7 +64,9 @@ const Carts = () => {
                 </div>
 
                 <button
-                  onClick={() => deleteFromCart(item)}
+                  onClick={async () => {
+                    await deleteFromCart(item), refresh();
+                  }}
                   className="px-3 py-2 bg-black text-white rounded-xl ml-3"
                 >
                   Delete

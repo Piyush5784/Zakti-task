@@ -1,11 +1,11 @@
-import { useRecoilStateLoadable } from "recoil";
-import { allProductsAtom } from "../Atoms";
-import { memo } from "react";
-import { ProductProp, useFunctionsContext } from "../Context/DataContext";
+import { useRecoilRefresher_UNSTABLE, useRecoilValueLoadable } from "recoil";
+import { allCartsListAtom, allProductsAtom } from "../Atoms";
+import { ProductProp, addToCart, deleteProduct } from "../Function";
 
 const Products = () => {
-  const [allProducts] = useRecoilStateLoadable(allProductsAtom);
-  const { addToCart, deleteProduct } = useFunctionsContext();
+  const allProducts = useRecoilValueLoadable(allProductsAtom);
+  const refresh = useRecoilRefresher_UNSTABLE(allProductsAtom);
+  const refreshCarts = useRecoilRefresher_UNSTABLE(allCartsListAtom);
 
   if (allProducts.state == "hasValue") {
     return (
@@ -22,14 +22,20 @@ const Products = () => {
                 <p className="p-3">Quantity : {Number(item.Quantity)}</p>
 
                 <button
-                  onClick={() => addToCart(item)}
+                  onClick={async () => {
+                    await addToCart(item);
+                    refreshCarts();
+                  }}
                   className="px-3 py-2 bg-black text-white rounded-xl ml-3 mb-3"
                 >
                   Add to Cart
                 </button>
 
                 <button
-                  onClick={() => deleteProduct(item._id)}
+                  onClick={async () => {
+                    await deleteProduct(item._id);
+                    refresh();
+                  }}
                   className="px-3 py-2 bg-black text-white rounded-xl ml-3 mb-3"
                 >
                   Delete
@@ -47,4 +53,4 @@ const Products = () => {
   }
 };
 
-export default memo(Products);
+export default Products;
